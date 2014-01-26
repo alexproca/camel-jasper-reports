@@ -1,6 +1,13 @@
-
 JasperReports Library
 =============================
+
+Changes from upstream
+=====================
+
+* removed static libraries from source
+* added .gitignore
+* added maven-bundle-plugin and bundle packageing for osgi manifest generation
+* changed version to avoid name collision with original version
 
 
 1. ANT Build Tool
