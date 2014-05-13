@@ -6,7 +6,7 @@
     <repository>mvn:org.apache.camel.karaf/apache-camel/${camel.version}/xml/features</repository>
     <repository>mvn:org.apache.karaf.assemblies.features/enterprise/${karaf.version}/xml/features</repository>
 
-    <feature name="camel-jasper-reports" version="${jasperreports.version}" resolver="(obr)">
+    <feature name="jasper-reports" version="${jasperreports.version}" resolver="(obr)">
         <bundle dependency="true">mvn:commons-beanutils/commons-beanutils/${commons-beanutils}</bundle>
         <bundle dependency="true">mvn:commons-digester/commons-digester/${commons-digester}</bundle>
         <bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.xalan/${xalan.version}</bundle>

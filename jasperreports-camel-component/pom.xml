@@ -20,8 +20,8 @@
 
   <groupId>org.apache.camel</groupId>
   <artifactId>camel-jasperreports</artifactId>
-  <packaging>pom</packaging>
-  <version>2.13.2-SNAPSHOT</version>
+  <packaging>bundle</packaging>
+  <version>2.13.0-SNAPSHOT</version>
   <name>Camel :: Jasper Reports</name>
   <description>Camel Jasper Reports support</description>
 
@@ -31,5 +31,44 @@
       <artifactId>jasperreports</artifactId>
       <version>5.1.2-osgi</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-core</artifactId>
+      <version>2.13.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-test</artifactId>
+      <version>2.13.0</version>
+    </dependency>
+      <dependency>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
+          <version>15.0</version>
+      </dependency>
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+          <version>1.7.2</version>
+      </dependency>
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-log4j12</artifactId>
+          <version>1.7.2</version>
+          <scope>test</scope>
+      </dependency>
+
   </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.4.0</version>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
