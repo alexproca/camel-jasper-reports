@@ -19,6 +19,7 @@ public class XmlToPDFComponent extends UriEndpointComponent {
         super(XmlToPDFEndPoint.class);
     }
 
+    @Override
     protected Endpoint createEndpoint(String uri, final String remaining, Map<String, Object> parameters) throws Exception {
         String resourceUri = remaining;
         LOG.debug("{} using schema resource: {}", this, resourceUri);
@@ -37,8 +38,8 @@ public class XmlToPDFComponent extends UriEndpointComponent {
         return new XmlToPDFEndPoint(uri, this, xmlToPDF, resourceUri, cache);
     }
 
-    protected void configureJasper(XmlToPDFBuilder xslt, String uri, String remaining, Map<String, Object> parameters) throws Exception {
-        setProperties(xslt, parameters);
+    protected void configureJasper(XmlToPDFBuilder jasperPdfBuilder, String uri, String remaining, Map<String, Object> parameters) throws Exception {
+        setProperties(jasperPdfBuilder, parameters);
     }
 
     protected void configureOutput(XsltBuilder xslt, String output) throws Exception {

@@ -27,7 +27,10 @@ public class XmlToPDFEndPoint extends ProcessorEndpoint {
     @UriParam
     private boolean cacheReport;
 
-    public XmlToPDFEndPoint(String endpointUri, Component component, XmlToPDFBuilder pdfBuilder, String resourceUri,
+    public XmlToPDFEndPoint(String endpointUri,
+                            Component component,
+                            XmlToPDFBuilder pdfBuilder,
+                            String resourceUri,
                             boolean cacheReport) throws Exception {
         super(endpointUri, component, pdfBuilder);
         this.jasperReport = pdfBuilder;
@@ -68,12 +71,10 @@ public class XmlToPDFEndPoint extends ProcessorEndpoint {
 
     @Override
     protected void onExchange(Exchange exchange) throws Exception {
-
         if (!cacheReport || cacheCleared) {
             loadResource(resourceUri);
         }
         super.onExchange(exchange);
-
     }
 
     /**
@@ -81,12 +82,12 @@ public class XmlToPDFEndPoint extends ProcessorEndpoint {
      *
      * @param resourceUri the resource to load
      * @throws javax.xml.transform.TransformerException is thrown if error loading resource
-     * @throws java.io.IOException          is thrown if error loading resource
+     * @throws java.io.IOException                      is thrown if error loading resource
      */
     protected void loadResource(String resourceUri) throws IOException {
         LOG.trace("{} loading report resource: {}", this, resourceUri);
         URL resourceURL = convertUriToURL(resourceUri);
-        jasperReport.setJasperConfig(resourceURL);
+        jasperReport.init(resourceURL);
         cacheCleared = false;
     }
 

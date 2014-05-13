@@ -1,6 +1,5 @@
 package com.docprocess.dx.transformation;
 
-import com.google.common.base.Throwables;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
@@ -16,6 +15,7 @@ import org.apache.camel.spi.DataFormat;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
@@ -25,43 +25,25 @@ import java.util.Map;
 public class XmlToPDFBuilder implements Processor, DataFormat {
 
     private JasperReport jasperReport;
-    private URL jasperConfig;
 
-    public void setJasperConfig(URL jasperConfig) {
-        this.jasperConfig = jasperConfig;
-        activate();
-    }
-
-    public void activate() {
+    public void init(URL config) {
         try {
-            URL config = getJasperConfig();
             jasperReport = JasperCompileManager.compileReport(config.openStream());
-        } catch (Exception e) {
-            Throwables.propagate(e);
+        } catch (JRException e) {
+            throw new RuntimeException("Exception compiling jasper report", e);
+        } catch (IOException ioe) {
+            throw new RuntimeException("Exception opening jasper config", ioe);
         }
-    }
-
-    public URL getJasperConfig() {
-        checkJasperConfig();
-        return jasperConfig;
-    }
-
-    private void checkJasperConfig() {
-        if(jasperConfig == null)
-            throw new IllegalStateException("Jasper config is null");
     }
 
     @Override
     public void process(Exchange exchange) throws Exception {
-        checkJasperConfig();
         byte[] xmlBytes = exchange.getIn().getBody(byte[].class);
         exchange.getIn().setBody(transform(xmlBytes));
-
     }
 
     @Override
     public void marshal(Exchange exchange, Object graph, OutputStream stream) throws Exception {
-        checkJasperConfig();
         byte[] xmlBytes = exchange.getContext().getTypeConverter().mandatoryConvertTo(byte[].class, graph);
         stream.write(transform(xmlBytes));
     }
@@ -72,19 +54,19 @@ public class XmlToPDFBuilder implements Processor, DataFormat {
     }
 
     public byte[] transform(byte[] data) throws JRException {
-            Map<String, Object> parameters = new HashMap<String, Object>();
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
-            JRExporter exporter = new JRPdfExporter();
-            JRXmlDataSource ds = new JRXmlDataSource(new ByteArrayInputStream(data));
+        JRExporter exporter = new JRPdfExporter();
+        JRXmlDataSource ds = new JRXmlDataSource(new ByteArrayInputStream(data));
 
-            JasperPrint jasperPrint = JasperFillManager.fillReport(getJasperReport(), parameters, ds);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(getJasperReport(), parameters, ds);
 
-            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, bos);
-            exporter.exportReport();
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, bos);
+        exporter.exportReport();
 
-            return bos.toByteArray();
+        return bos.toByteArray();
     }
 
     JasperReport getJasperReport() {
