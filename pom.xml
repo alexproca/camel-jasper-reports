@@ -27,7 +27,6 @@
   <modules>
     <module>jasperreports-osgi</module>
     <module>jasperreports-camel-component</module>
-    <module>feature</module>
   </modules>
 
 </project>
