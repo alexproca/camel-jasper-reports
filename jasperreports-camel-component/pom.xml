@@ -74,7 +74,14 @@
             <resource>
                 <directory>src/main/features</directory>
                 <filtering>true</filtering>
-                <targetPath>${project.build.directory}/features</targetPath>
+                <targetPath>features</targetPath>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
                 <includes>
                     <include>**/*</include>
                 </includes>
@@ -115,8 +122,24 @@
                         <configuration>
                             <artifacts>
                                 <artifact>
-                                    <file>${project.build.directory}/features/features.xml</file>
+                                    <file>${project.build.directory}/classes/features/features.xml</file>
                                     <classifier>features</classifier>
+                                    <type>xml</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>attach-test-route</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>${project.basedir}/src/main/routes/testRoute.xml</file>
+                                    <classifier>test</classifier>
                                     <type>xml</type>
                                 </artifact>
                             </artifacts>

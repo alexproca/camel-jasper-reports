@@ -1,1 +1,1 @@
-class=com.docprocess.dx.transformation.XmlToPDFComponent
+class=org.apache.camel.jasperreports.XmlToPDFComponent

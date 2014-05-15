@@ -6,12 +6,13 @@
        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 
     <camelContext trace="false" xmlns="http://camel.apache.org/schema/blueprint">
-        <route>
-            <from uri="quartz2://begin"/>
-            <to uri="freemarker:data/northwind.xml"/>
-            <to uri="jasperpdf://reports/OrdersReport.jrxml"/>
-            <to uri="file:///tmp/out-pdf"/>
-        </route>
-    </camelContext>
+    <route>
+        <from uri="quartz2://begin?cron=0/10+*+*+*+*+?"/>
+        <log message="Send File"/>
+        <to uri="freemarker:org/apache/camel/jasperreports/northwind.xml"/>
+        <to uri="jasperpdf://org/apache/camel/jasperreports/OrdersReport.jrxml"/>
+        <to uri="file:///tmp/out-pdf"/>
+    </route>
+</camelContext>
 
 </blueprint>
