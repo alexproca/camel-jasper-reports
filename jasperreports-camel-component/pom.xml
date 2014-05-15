@@ -22,7 +22,7 @@
     <groupId>org.apache.camel</groupId>
     <artifactId>camel-jasper-reports</artifactId>
     <packaging>bundle</packaging>
-    <version>2.13.1</version>
+    <version>2.13.1-SNAPSHOT</version>
 
     <name>Camel :: Jasper Reports</name>
     <description>Camel Jasper Reports support</description>
