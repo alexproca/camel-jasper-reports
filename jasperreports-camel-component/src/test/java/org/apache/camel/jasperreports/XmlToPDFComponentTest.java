@@ -1,4 +1,4 @@
-package com.docprocess.dx.transformation;
+package org.apache.camel.jasperreports;
 
 import com.google.common.base.Objects;
 import com.google.common.io.Resources;
@@ -7,6 +7,7 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.jasperreports.XmlToPDFComponent;
 import org.junit.Test;
 
 import java.net.URL;
@@ -29,13 +30,13 @@ public class XmlToPDFComponentTest extends org.apache.camel.test.junit4.CamelTes
             public void configure() throws Exception {
 
                 from("direct:first-endpoint")
-                        .to("jasperpdf://reports/OrdersReport.jrxml")
+                        .to("jasperpdf://org/apache/camel/jasperreports/OrdersReport.jrxml")
                         .to("mock:end")
                         .setHeader(Exchange.FILE_NAME, constant("first.pdf"))
                         .to("file://target");
 
                 from("direct:second-endpoint")
-                        .to("jasperpdf://reports/OrdersReport2.jrxml")
+                        .to("jasperpdf://org/apache/camel/jasperreports/OrdersReport2.jrxml")
                         .to("mock:end")
                         .setHeader(Exchange.FILE_NAME, constant("second.pdf"))
                         .to("file://target");
@@ -46,7 +47,7 @@ public class XmlToPDFComponentTest extends org.apache.camel.test.junit4.CamelTes
 
     @Test
     public void testComponent() throws Exception {
-        byte[] xmlContent = Resources.toByteArray(Resources.getResource("data/northwind.xml"));
+        byte[] xmlContent = Resources.toByteArray(Resources.getResource("org/apache/camel/jasperreports/northwind.xml"));
         endEndpoint.expectedMessageCount(2);
 
         template.send("direct:first-endpoint", createExchangeWithBody(xmlContent));

@@ -1,4 +1,4 @@
-package com.docprocess.dx.transformation;
+package org.apache.camel.jasperreports;
 
 import org.apache.camel.Endpoint;
 import org.apache.camel.builder.xml.XsltBuilder;

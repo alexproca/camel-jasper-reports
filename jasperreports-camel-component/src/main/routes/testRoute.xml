@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:camel="http://camel.apache.org/schema/blueprint"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+    <camelContext trace="false" xmlns="http://camel.apache.org/schema/blueprint">
+    <route>
+        <from uri="quartz2://begin?cron=0/10+*+*+*+*+?"/>
+        <log message="Send File"/>
+        <to uri="freemarker:org/apache/camel/jasperreports/northwind.xml"/>
+        <to uri="jasperpdf://org/apache/camel/jasperreports/OrdersReport.jrxml"/>
+        <to uri="file:///tmp/out-pdf"/>
+    </route>
+</camelContext>
+
+</blueprint>

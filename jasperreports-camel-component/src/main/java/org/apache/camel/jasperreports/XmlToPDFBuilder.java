@@ -1,4 +1,4 @@
-package com.docprocess.dx.transformation;
+package org.apache.camel.jasperreports;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;

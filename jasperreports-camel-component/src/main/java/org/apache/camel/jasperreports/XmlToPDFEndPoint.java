@@ -1,4 +1,4 @@
-package com.docprocess.dx.transformation;
+package org.apache.camel.jasperreports;
 
 import org.apache.camel.Component;
 import org.apache.camel.Exchange;
