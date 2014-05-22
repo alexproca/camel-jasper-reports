@@ -28,11 +28,17 @@ public class XmlToPDFBuilder implements Processor, DataFormat {
 
     public void init(URL config) {
         try {
-            jasperReport = JasperCompileManager.compileReport(config.openStream());
-        } catch (JRException e) {
-            throw new RuntimeException("Exception compiling jasper report", e);
+            init(config.openStream());
         } catch (IOException ioe) {
             throw new RuntimeException("Exception opening jasper config", ioe);
+        }
+    }
+
+    public void init(InputStream config) {
+        try {
+            jasperReport = JasperCompileManager.compileReport(config);
+        } catch (JRException e) {
+            throw new RuntimeException("Exception compiling jasper report", e);
         }
     }
 

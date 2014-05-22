@@ -1,0 +1,13 @@
+language: java
+
+jdk:
+  - openjdk6
+  - openjdk7
+  - oraclejdk7
+
+notifications:
+  email:
+    recipients:
+      - alex.proca@gmail.com
+    on_success: [change]
+    on_failure: [always]

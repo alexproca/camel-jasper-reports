@@ -81,18 +81,20 @@ public class XmlToPDFEndPoint extends ProcessorEndpoint {
      * Loads the resource.
      *
      * @param resourceUri the resource to load
-     * @throws javax.xml.transform.TransformerException is thrown if error loading resource
-     * @throws java.io.IOException                      is thrown if error loading resource
+     * @throws javax.xml.transform.TransformerException
+     *                             is thrown if error loading resource
+     * @throws java.io.IOException is thrown if error loading resource
      */
     protected void loadResource(String resourceUri) throws IOException {
         LOG.trace("{} loading report resource: {}", this, resourceUri);
-        URL resourceURL = convertUriToURL(resourceUri);
-        jasperReport.init(resourceURL);
+        jasperReport.init(convertUriToURL(resourceUri));
         cacheCleared = false;
     }
 
     private URL convertUriToURL(String resourceUri) {
-        return getClass().getClassLoader().getResource(resourceUri);
+        ClassLoader threadClassLoader = Thread.currentThread().getContextClassLoader();
+        ClassLoader loader = threadClassLoader != null ? threadClassLoader : getClass().getClassLoader();
+        return loader.getResource(resourceUri);
     }
 
     @Override
