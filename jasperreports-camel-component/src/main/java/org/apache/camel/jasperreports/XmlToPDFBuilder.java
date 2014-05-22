@@ -29,8 +29,8 @@ public class XmlToPDFBuilder implements Processor, DataFormat {
     public void init(URL config) {
         try {
             init(config.openStream());
-        } catch (IOException ioe) {
-            throw new RuntimeException("Exception opening jasper config", ioe);
+        } catch (IOException e) {
+            throw new RuntimeException("Exception opening jasper config", e);
         }
     }
 

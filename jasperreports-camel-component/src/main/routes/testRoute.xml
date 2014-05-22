@@ -10,7 +10,7 @@
         <from uri="quartz2://begin?cron=0/10+*+*+*+*+?"/>
         <log message="Send File"/>
         <to uri="freemarker:org/apache/camel/jasperreports/northwind.xml"/>
-        <to uri="jasperpdf://org/apache/camel/jasperreports/OrdersReport.jrxml"/>
+        <to uri="jasperpdf:///test/jasperreports/OrdersReport.jrxml"/>
         <to uri="file:///tmp/out-pdf"/>
     </route>
 </camelContext>

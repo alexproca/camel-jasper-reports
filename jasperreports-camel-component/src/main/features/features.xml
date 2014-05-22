@@ -5,10 +5,18 @@
 
     <repository>mvn:org.apache.camel.karaf/apache-camel/2.13.0/xml/features</repository>
 
+    <!--
+
+    features:addurl mvn:org.apache.camel/camel-jasper-reports/2.13.0/xml/features
+    features:install camel-jasper-reports-test
+
+    -->
+
     <feature name="camel-jasper-reports-test" version="${project.version}" resolver="(obr)">
         <feature>camel-jasper-reports</feature>
         <feature>camel-quartz2</feature>
         <feature>camel-freemarker</feature>
+        <bundle>mvn:org.apache.camel/jasperreports-external-template/${project.version}</bundle>
 
         <bundle>blueprint:mvn:org.apache.camel/camel-jasper-reports/${project.version}/xml/test</bundle>
     </feature>

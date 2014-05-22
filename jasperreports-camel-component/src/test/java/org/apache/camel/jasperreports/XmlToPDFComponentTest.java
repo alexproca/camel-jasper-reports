@@ -30,13 +30,13 @@ public class XmlToPDFComponentTest extends org.apache.camel.test.junit4.CamelTes
             public void configure() throws Exception {
 
                 from("direct:first-endpoint")
-                        .to("jasperpdf://org/apache/camel/jasperreports/OrdersReport.jrxml")
+                        .to("jasperpdf:///org/apache/camel/jasperreports/OrdersReport.jrxml")
                         .to("mock:end")
                         .setHeader(Exchange.FILE_NAME, constant("first.pdf"))
                         .to("file://target");
 
                 from("direct:second-endpoint")
-                        .to("jasperpdf://org/apache/camel/jasperreports/OrdersReport2.jrxml")
+                        .to("jasperpdf:///org/apache/camel/jasperreports/OrdersReport2.jrxml")
                         .to("mock:end")
                         .setHeader(Exchange.FILE_NAME, constant("second.pdf"))
                         .to("file://target");

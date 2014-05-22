@@ -26,6 +26,7 @@
 
   <modules>
     <module>jasperreports-osgi</module>
+    <module>jasperreports-external-template</module>
     <module>jasperreports-camel-component</module>
   </modules>
 
